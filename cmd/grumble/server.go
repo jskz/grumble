@@ -16,8 +16,6 @@ import (
 	"errors"
 	"fmt"
 	"github.com/golang/protobuf/proto"
-	"hash"
-	"log"
 	"github.com/jskz/grumble/pkg/acl"
 	"github.com/jskz/grumble/pkg/ban"
 	"github.com/jskz/grumble/pkg/freezer"
@@ -27,6 +25,8 @@ import (
 	"github.com/jskz/grumble/pkg/serverconf"
 	"github.com/jskz/grumble/pkg/sessionpool"
 	"github.com/jskz/grumble/pkg/web"
+	"hash"
+	"log"
 	"net"
 	"net/http"
 	"path/filepath"
@@ -37,7 +37,7 @@ import (
 
 // The default port a Murmur server listens on
 const DefaultPort = 64738
-const DefaultWebPort = 443
+const DefaultWebPort = 4443
 const UDPPacketSize = 1024
 
 const LogOpsBeforeSync = 100
@@ -1452,9 +1452,9 @@ func (server *Server) Start() (err error) {
 		// Set sensible timeouts, in case no reverse proxy is in front of Grumble.
 		// Non-conforming (or malicious) clients may otherwise block indefinitely and cause
 		// file descriptors (or handles, depending on your OS) to leak and/or be exhausted
-		ReadTimeout: 5 * time.Second,
+		ReadTimeout:  5 * time.Second,
 		WriteTimeout: 10 * time.Second,
-		IdleTimeout: 2 * time.Minute,
+		IdleTimeout:  2 * time.Minute,
 	}
 	go func() {
 		err := server.webhttp.ListenAndServeTLS("", "")
