@@ -8,7 +8,7 @@ package main
 
 import (
 	"fmt"
-	"mumble.info/grumble/pkg/logtarget"
+	"github.com/jskz/grumble/pkg/logtarget"
 	"os"
 	"os/signal"
 	"syscall"
